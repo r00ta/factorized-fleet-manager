@@ -1,0 +1,11 @@
+version: '3.2'
+services:
+  db:
+    image: library/postgres:13.1
+    container_name: dinosaur-postgres
+    environment:
+      POSTGRES_USER: dinosaur
+      POSTGRES_PASSWORD: dinosaur
+      POSTGRES_DB: dinosaur
+    ports:
+      - "5432:5432"
