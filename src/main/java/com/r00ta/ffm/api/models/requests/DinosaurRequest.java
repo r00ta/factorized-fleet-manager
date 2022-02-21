@@ -7,7 +7,7 @@ import com.r00ta.ffm.models.Dinosaur;
 
 public class DinosaurRequest {
 
-    @NotEmpty(message = "Bridge name cannot be null or empty")
+    @NotEmpty(message = "Dinosaur name cannot be null or empty")
     @JsonProperty("name")
     private String name;
 

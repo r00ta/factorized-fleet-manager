@@ -19,12 +19,12 @@ public class ExternalUserExceptionMapper implements ExceptionMapper<ExternalUser
     private static final Logger LOGGER = LoggerFactory.getLogger(ExternalUserExceptionMapper.class);
 
     @Inject
-    DinosaurErrorService bridgeErrorService;
+    DinosaurErrorService dinosaurErrorService;
 
     @Override
     public Response toResponse(ExternalUserException e) {
         LOGGER.debug("Failure", e);
-        Optional<DinosaurError> error = bridgeErrorService.getError(e);
+        Optional<DinosaurError> error = dinosaurErrorService.getError(e);
         ResponseBuilder builder = Response.status(e.getStatusCode());
         if (error.isPresent()) {
             ErrorResponse errorResponse = ErrorResponse.from(error.get());

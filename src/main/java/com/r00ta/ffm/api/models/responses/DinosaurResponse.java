@@ -25,7 +25,7 @@ public class DinosaurResponse extends BaseResponse {
     private String endpoint;
 
     public DinosaurResponse() {
-        super("Bridge");
+        super("Dinosaur");
     }
 
     public ZonedDateTime getSubmittedAt() {

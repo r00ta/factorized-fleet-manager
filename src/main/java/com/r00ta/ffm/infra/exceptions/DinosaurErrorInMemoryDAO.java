@@ -63,7 +63,7 @@ public class DinosaurErrorInMemoryDAO implements DinosaurErrorDAO {
         }
     }
 
-    private final Map<Integer, DinosaurError> bridgeErrorsFromId = new HashMap<>();
+    private final Map<Integer, DinosaurError> dinosaurErrorsFromId = new HashMap<>();
     private final Map<String, DinosaurError> errorsFromExc = new HashMap<>();
     private final List<DinosaurError> dinosaurErrorList = new ArrayList<>();
 
@@ -86,7 +86,7 @@ public class DinosaurErrorInMemoryDAO implements DinosaurErrorDAO {
     private void populate(ErrorInfo errorInfo) {
         DinosaurError dinosaurError = errorInfo.toError();
         dinosaurErrorList.add(dinosaurError);
-        bridgeErrorsFromId.put(dinosaurError.getId(), dinosaurError);
+        dinosaurErrorsFromId.put(dinosaurError.getId(), dinosaurError);
         errorsFromExc.put(errorInfo.getException(), dinosaurError);
     }
 
@@ -104,7 +104,7 @@ public class DinosaurErrorInMemoryDAO implements DinosaurErrorDAO {
 
     @Override
     public DinosaurError findErrorByIdAndType(int errorId, DinosaurErrorType type) {
-        DinosaurError error = bridgeErrorsFromId.get(errorId);
+        DinosaurError error = dinosaurErrorsFromId.get(errorId);
         if (!error.getType().equals(type)) {
             throw new ItemNotFoundException(String.format("Error with id %s and type %s not found in the catalog", errorId, type));
         }

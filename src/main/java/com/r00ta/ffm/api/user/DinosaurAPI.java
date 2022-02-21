@@ -51,28 +51,28 @@ public class DinosaurAPI {
     JsonWebToken jwt;
 
     @GET
-    public Response getBridges(@Valid @BeanParam QueryInfo queryInfo) {
+    public Response getDinosaurs(@Valid @BeanParam QueryInfo queryInfo) {
         System.out.println(jwt.getSubject());
         return Response.ok(ListResponse.fill(dinosaurService
                 .getDinosaurs(identityResolver.resolve(jwt), queryInfo), new DinosaurListResponse(), dinosaurService::toResponse)).build();
     }
 
     @POST
-    public Response createBridge(DinosaurRequest dinosaurRequest) {
+    public Response createDinosaur(DinosaurRequest dinosaurRequest) {
         Dinosaur dinosaur = dinosaurService.createDinosaur(identityResolver.resolve(jwt), dinosaurRequest);
         return Response.status(Response.Status.CREATED).entity(dinosaurService.toResponse(dinosaur)).build();
     }
 
     @GET
     @Path("{id}")
-    public Response getBridge(@PathParam("id") @NotEmpty String id) {
+    public Response getDinosaur(@PathParam("id") @NotEmpty String id) {
         Dinosaur dinosaur = dinosaurService.getDinosaur(id, identityResolver.resolve(jwt));
         return Response.ok(dinosaurService.toResponse(dinosaur)).build();
     }
 
     @DELETE
     @Path("{id}")
-    public Response deleteBridge(@PathParam("id") String id) {
+    public Response deleteDinosaur(@PathParam("id") String id) {
         dinosaurService.deleteDinosaur(id, identityResolver.resolve(jwt));
         return Response.accepted().build();
     }

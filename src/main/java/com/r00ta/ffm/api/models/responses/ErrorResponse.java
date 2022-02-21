@@ -16,12 +16,12 @@ public class ErrorResponse extends BaseResponse {
     @JsonProperty("reason")
     private String reason;
 
-    public static ErrorResponse from(DinosaurError bridgeError) {
+    public static ErrorResponse from(DinosaurError dinosaurError) {
         ErrorResponse response = new ErrorResponse();
-        response.setId(Integer.toString(bridgeError.getId()));
-        response.setCode(bridgeError.getCode());
-        response.setReason(bridgeError.getReason());
-        response.setHref(APIConstants.ERROR_API_BASE_PATH + bridgeError.getId());
+        response.setId(Integer.toString(dinosaurError.getId()));
+        response.setCode(dinosaurError.getCode());
+        response.setReason(dinosaurError.getReason());
+        response.setHref(APIConstants.ERROR_API_BASE_PATH + dinosaurError.getId());
         return response;
     }
 

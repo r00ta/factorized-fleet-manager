@@ -38,7 +38,7 @@ public class DinosaurDAO implements PanacheRepositoryBase<Dinosaur, String> {
     public ListResult<Dinosaur> findByCustomerId(String customerId, QueryInfo queryInfo) {
         Parameters parameters = Parameters.with("customerId", customerId);
         long total = find("#DINOSAUR.findByCustomerId", parameters).count();
-        List<Dinosaur> bridges = find("#DINOSAUR.findByCustomerId", parameters).page(queryInfo.getPageNumber(), queryInfo.getPageSize()).list();
-        return new ListResult<>(bridges, queryInfo.getPageNumber(), total);
+        List<Dinosaur> dinosaurs = find("#DINOSAUR.findByCustomerId", parameters).page(queryInfo.getPageNumber(), queryInfo.getPageSize()).list();
+        return new ListResult<>(dinosaurs, queryInfo.getPageNumber(), total);
     }
 }

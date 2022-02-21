@@ -75,7 +75,7 @@ public class DinosaurServiceImpl implements DinosaurService {
     public void deleteDinosaur(String id, String customerId) {
         Dinosaur dinosaur = findByIdAndCustomerId(id, customerId);
         dinosaur.setStatus(DinosaurStatus.DELETION_REQUESTED);
-        LOGGER.info("Bridge with id '{}' for customer '{}' has been marked for deletion", dinosaur.getId(), dinosaur.getCustomerId());
+        LOGGER.info("Dinosaur with id '{}' for customer '{}' has been marked for deletion", dinosaur.getId(), dinosaur.getCustomerId());
     }
 
     @Override
@@ -90,19 +90,19 @@ public class DinosaurServiceImpl implements DinosaurService {
 
     @Override
     public Dinosaur updateDinosaur(DinosaurDTO dinosaurDTO) {
-        Dinosaur bridge = getDinosaur(dinosaurDTO.getId(), dinosaurDTO.getCustomerId());
-        bridge.setStatus(dinosaurDTO.getStatus());
+        Dinosaur dinosaur = getDinosaur(dinosaurDTO.getId(), dinosaurDTO.getCustomerId());
+        dinosaur.setStatus(dinosaurDTO.getStatus());
 
         if (dinosaurDTO.getStatus().equals(DinosaurStatus.DELETED)) {
-            dinosaurDAO.deleteById(bridge.getId());
+            dinosaurDAO.deleteById(dinosaur.getId());
         }
 
         // Update metrics
         meterRegistry.counter("manager.dinosaur.status.change",
                               Collections.singletonList(Tag.of("status", dinosaurDTO.getStatus().toString()))).increment();
 
-        LOGGER.info("Dinosaur with id '{}' has been updated for customer '{}'", bridge.getId(), bridge.getCustomerId());
-        return bridge;    }
+        LOGGER.info("Dinosaur with id '{}' has been updated for customer '{}'", dinosaur.getId(), dinosaur.getCustomerId());
+        return dinosaur;    }
 
     @Override
     public DinosaurDTO toDTO(Dinosaur dinosaur) {
@@ -129,7 +129,7 @@ public class DinosaurServiceImpl implements DinosaurService {
     private Dinosaur findByIdAndCustomerId(String id, String customerId) {
         Dinosaur dinosaur = dinosaurDAO.findByIdAndCustomerId(id, customerId);
         if (dinosaur == null) {
-            throw new ItemNotFoundException(String.format("Bridge with id '%s' for customer '%s' does not exist", id, customerId));
+            throw new ItemNotFoundException(String.format("Dinosaur with id '%s' for customer '%s' does not exist", id, customerId));
         }
         return dinosaur;
     }

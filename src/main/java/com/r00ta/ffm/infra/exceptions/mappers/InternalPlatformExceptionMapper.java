@@ -21,16 +21,16 @@ public class InternalPlatformExceptionMapper implements ExceptionMapper<Internal
     private static final String MESSAGE_TEMPLATE = "There was an internal exception that is not fixable from the user. Please " +
             "open a bug with all the information you have, including the name of the exception %s and the message %s";
 
-    private DinosaurError internalPlatformExceptionBridgeError;
+    private DinosaurError internalPlatformExceptionDinosaurError;
 
     @Inject
-    DinosaurErrorService bridgeErrorService;
+    DinosaurErrorService dinosaurErrorService;
 
     @PostConstruct
     void init() {
-        Optional<DinosaurError> error = bridgeErrorService.getError(InternalPlatformException.class);
+        Optional<DinosaurError> error = dinosaurErrorService.getError(InternalPlatformException.class);
         if (error.isPresent()) {
-            internalPlatformExceptionBridgeError = error.get();
+            internalPlatformExceptionDinosaurError = error.get();
         } else {
             LOGGER.error("InternalPlatformException error is not defined in the ErrorsService.");
             Quarkus.asyncExit(1);
@@ -43,7 +43,7 @@ public class InternalPlatformExceptionMapper implements ExceptionMapper<Internal
 
         // InternalPlatformException is always returned.
         Response.ResponseBuilder builder = Response.status(Response.Status.INTERNAL_SERVER_ERROR);
-        ErrorResponse errorResponse = ErrorResponse.from(internalPlatformExceptionBridgeError);
+        ErrorResponse errorResponse = ErrorResponse.from(internalPlatformExceptionDinosaurError);
         errorResponse.setReason(String.format(MESSAGE_TEMPLATE, e.getClass().getName(), e.getMessage()));
         builder.entity(errorResponse);
         return builder.build();

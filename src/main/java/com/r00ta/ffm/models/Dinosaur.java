@@ -18,16 +18,16 @@ import com.r00ta.ffm.infra.dto.DinosaurStatus;
 
 @NamedQueries({
         @NamedQuery(name = "DINOSAUR.findByStatusesAndShardId",
-                query = "from Bridge where status IN :statuses and shard_id=:shardId"),
+                query = "from Dinosaur where status IN :statuses and shard_id=:shardId"),
         @NamedQuery(name = "DINOSAUR.findByNameAndCustomerId",
-                query = "from Bridge where name=:name and customer_id=:customerId"),
+                query = "from Dinosaur where name=:name and customer_id=:customerId"),
         @NamedQuery(name = "DINOSAUR.findByIdAndCustomerId",
-                query = "from Bridge where id=:id and customer_id=:customerId"),
+                query = "from Dinosaur where id=:id and customer_id=:customerId"),
         @NamedQuery(name = "DINOSAUR.findByCustomerId",
-                query = "from Bridge where customer_id=:customerId order by submitted_at desc"),
+                query = "from Dinosaur where customer_id=:customerId order by submitted_at desc"),
 })
 @Entity
-@Table(name = "BRIDGE", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "customer_id" }) })
+@Table(name = "DINOSAUR", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "customer_id" }) })
 public class Dinosaur {
 
     public static final String CUSTOMER_ID_PARAM = "customerId";
@@ -140,8 +140,8 @@ public class Dinosaur {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Dinosaur bridge = (Dinosaur) o;
-        return id.equals(bridge.id);
+        Dinosaur dinosaur = (Dinosaur) o;
+        return id.equals(dinosaur.id);
     }
 
     @Override

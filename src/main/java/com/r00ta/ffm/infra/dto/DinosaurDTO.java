@@ -68,8 +68,8 @@ public class DinosaurDTO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        DinosaurDTO bridgeDTO = (DinosaurDTO) o;
-        return id.equals(bridgeDTO.id);
+        DinosaurDTO dinosaurDTO = (DinosaurDTO) o;
+        return id.equals(dinosaurDTO.id);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class DinosaurDTO {
 
     @Override
     public String toString() {
-        return "BridgeDTO{" +
+        return "DinosaurDTO{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", customerId='" + customerId + '\'' +

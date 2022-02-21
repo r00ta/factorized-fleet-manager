@@ -40,9 +40,9 @@ import static java.util.stream.Collectors.toList;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Authenticated
-public class ShardBridgesSyncAPI {
+public class ShardSyncAPI {
     private static final List<DinosaurStatus> statuses = Arrays.asList(DinosaurStatus.REQUESTED, DinosaurStatus.DELETION_REQUESTED);
-    private static final Logger LOGGER = LoggerFactory.getLogger(ShardBridgesSyncAPI.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShardSyncAPI.class);
 
     @Inject
     DinosaurService dinosaurService;
@@ -60,7 +60,7 @@ public class ShardBridgesSyncAPI {
     public Response getDinosaurs() {
         String shardId = identityResolver.resolve(jwt);
         failIfNotAuthorized(shardId);
-        LOGGER.info("Shard asks for Bridges to deploy or delete");
+        LOGGER.info("Shard asks for Dinosaurs to deploy or delete");
         return Response.ok(dinosaurService.getDinosaursByStatusesAndShardId(statuses, shardId)
                 .stream()
                 .map(dinosaurService::toDTO)
@@ -69,10 +69,10 @@ public class ShardBridgesSyncAPI {
     }
 
     @PUT
-    public Response updateBridge(DinosaurDTO dto) {
+    public Response updateDinosaur(DinosaurDTO dto) {
         String subject = identityResolver.resolve(jwt);
         failIfNotAuthorized(subject);
-        LOGGER.info("Shard wants to update the Bridge with id '{}' with the status '{}'", dto.getId(), dto.getStatus());
+        LOGGER.info("Shard wants to update the Dinosaur with id '{}' with the status '{}'", dto.getId(), dto.getStatus());
         dinosaurService.updateDinosaur(dto);
         return Response.ok().build();
     }
