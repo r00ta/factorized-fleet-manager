@@ -2,6 +2,8 @@
 
 The phase 1 aims to provide a template for a Quarkus based fleet manager. 
 
+**NOTE: This is just an experiment!**
+
 In the project you have replace the `Dinosaur` with the name of your entity. You have to add your entity logic in 
 - `com.r00ta.ffm.api.models.requests.DinosaurRequest`
 - `com.r00ta.ffm.api.models.responses.DinosaurResponse`
